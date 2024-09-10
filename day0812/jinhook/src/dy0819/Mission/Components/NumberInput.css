@@ -1,0 +1,23 @@
+.NumberInputWrapper {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.NumberInputWrapper input {
+  width: 200px;
+  height: 50px;
+  border-radius: 12px;
+  padding: 4px 8px;
+  border: 1px solid gray;
+}
+
+.NumberInputWrapper button {
+  width: 100px;
+  height: 50px;
+  border-radius: 12px;
+  padding: 4px 8px;
+  border: none;
+  margin-left: 12px;
+  cursor: pointer;
+}

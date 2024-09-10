@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- helloReact.html -->
+<body>
+    <h3>Hello 리액트</h3>
+    
+    
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+
+    <script>
+        "use strict";
+
+        //관심 엘리먼트 가져오기
+        const container = document.getElementById("root");
+        
+        //reactDOM(변경가능)을 통한 루트 엘리먼트 생성
+        const root = ReactDOM.createRoot(container);
+
+        //반영
+        // root.render(React.createElement("h2", null, "안녕 리엑트!"));//<h2>안녕 리엑트!</h2>
+        root.render(React.createElement("h2", {style:{color:'blue'}}, "안녕 리엑트!"));
+        //<h2 style="color:blue">안녕 리엑트!</h2>
+
+    </script>
+</body>
+</html>

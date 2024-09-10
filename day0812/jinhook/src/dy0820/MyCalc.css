@@ -1,0 +1,19 @@
+.MyCalc {
+    border: 1px solid red;
+    width: 300px;
+    padding: 10px;
+  }
+  
+  .CalcHeader {
+    margin-bottom: 10px;
+  }
+  
+  .CalcBody {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .CalcResult {
+    font-size: 16px;
+  }

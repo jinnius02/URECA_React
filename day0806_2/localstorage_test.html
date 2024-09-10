@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function init(){
+            //localStorage에 데이터 저장하기 3가지
+            // localStorage.setItem("username","전경원");
+            // localStorage["username"]="고주희";
+            localStorage.username="이효린";
+
+
+            let user = {
+                id: "youngsoo",
+                name: "김영수",
+                age: 10
+            };
+            
+            // localStorage.setItem("user", user);  
+            //(X) '[object Object]'문자열 저장됨
+            
+            localStorage.setItem("user", JSON.stringify(user));   
+            //(O) '{"id":"youngsoo","name":"김영수","age":10}'문자열 저장됨
+            
+            ////////////////////저장된 데이터 불러오기////////////////////////////////////
+            let  username = localStorage.getItem("username");
+            document.querySelector("#result").innerHTML=username;
+
+
+
+            // let  userInfo = localStorage.getItem("user");
+            //'{"id":"youngsoo","name":"김영수","age":10}'
+            
+            let  userInfo =  JSON.parse( localStorage.getItem("user")  );
+            //JSON.parse(문자열) => 문자열을 JavaScript Object로 변환합니다? X
+            //JSON.parse(문자열) => 형식을 갖춘 문자열을 JavaScript Object로 변환합니다? I
+
+
+            document.querySelector("#result2").innerHTML=userInfo.id;
+
+
+        }
+    </script>
+</head>
+<!-- localstorage_test.html -->
+<body onload="init()">
+    <div id="result"></div>
+    <div id="result2"></div>
+</body>
+</html>

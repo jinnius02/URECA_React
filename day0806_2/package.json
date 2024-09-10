@@ -1,0 +1,11 @@
+{
+  "name": "dy0806",
+  "version": "1.0.0",
+  "main": "module1_import.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotto</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        #btn {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 5px 10px;
+            background-color: plum;
+            color: blueviolet;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+        #view {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 0 auto;
+            padding: 20px;
+            width: 700px;
+            height: 120px;
+            background-color: rgb(250, 247, 247);
+        }
+        #log {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            color: darkslategray;
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+        }
+        .ball {
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            border-radius: 50%;
+            line-height: 70px;
+            font-weight: bold;
+            align-self: center;
+        }
+        .ball0 {
+            background-color: rgb(247, 239, 130);
+        }
+        .ball1 {
+            background-color: skyblue;
+        }
+        .ball2 {
+            background-color: rgb(255, 89, 47);
+        }
+        .ball3 {
+            background-color: lightgray;
+        }
+        .ball4 {
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+  <h1>이번주 로또 예상 번호</h1>
+  <button id="btn">번호 생성</button>
+  <div id="view"></div>
+  <div id="log"></div>
+  <script>
+      document.querySelector("#btn").addEventListener("click", game);
+
+      // 페이지 로딩 시 로그를 불러와 화면에 표시합니다.
+      window.onload = function() {
+          loadLog();
+      };
+
+      // 로컬 스토리지에서 로그 불러오기 함수
+      // 저장된 로그가 없으면 빈 배열을 기본값으로 사용합니다.
+      function loadLog() {
+          const logs = JSON.parse(localStorage.getItem('lottoLogs') || '[]');
+          const logElement = document.getElementById('log');
+          logElement.innerHTML = logs.join('<br>'); // 로그들을 줄바꿈으로 구분하여 화면에 표시
+      }
+
+      // 새로운 로그를 저장하고 화면에 표시하는 함수
+      // 현재 날짜와 시간을 포함하여 로그에 추가합니다.
+      function saveLog(numbers) {
+          const logs = JSON.parse(localStorage.getItem('lottoLogs') || '[]');
+          const date = new Date();
+          const timestamp = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+          const log = `${timestamp} [${numbers.join(', ')}]`; // 로그 형식 지정
+          logs.push(log); // 로그 배열에 추가
+          localStorage.setItem('lottoLogs', JSON.stringify(logs)); // 로컬 스토리지에 저장
+          loadLog(); // 로그를 다시 불러와 화면에 표시
+      }
+
+      // 로또 번호를 생성하고, 1초 간격으로 화면에 표시하는 함수
+      function game() {
+          let lotto = [];
+          while (lotto.length < 6) {
+              let num = parseInt(Math.random() * 45 + 1); // 1부터 45 사이의 난수 생성
+              if (lotto.indexOf(num) === -1) lotto.push(num); // 중복되지 않는 번호만 추가
+          }
+          lotto.sort((a, b) => a - b); // 생성된 번호를 오름차순으로 정렬
+          let i = 0;
+          let view = ``;
+          let intervalId = setInterval(function () {
+              if (lotto.length === i) {
+                  clearInterval(intervalId);
+                  saveLog(lotto); // 생성된 번호를 로그로 저장합니다.
+                  return;
+              }
+              view += `<div class="ball ball${parseInt(lotto[i] / 10)}">${lotto[i++]}</div>`; // 공에 번호를 표시하고 적절한 클래스 적용
+              document.querySelector("#view").innerHTML = view; // view 컨테이너에 HTML 추가
+          }, 1000); // 각 번호를 1초 간격으로 화면에 표시
+      }
+  </script>
+</body>
+</html>
